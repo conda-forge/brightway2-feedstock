@@ -10,13 +10,15 @@ source:
   sha256: e9521fbb6368689e784d7f5454e89739db3a7d7ea6c64a6089d9e5f45f49a4a7
 
 build:
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv
   number: 0
 
 requirements:
+  build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
-    - python >=3.6
+    - python
     - pip
     - setuptools
   run:
